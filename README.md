@@ -50,7 +50,7 @@ backend = %(sshd_backend)s
 
 (Lưu ý: Nếu trước đó bạn đổi port SSH sang số port khác, ví dụ 2222, hãy sửa port = 2222). Lưu tệp và thoát (Ctrl+O -> Enter -> Ctrl+X trong Nano).
 
-6.Khởi động lại dịch vụ và kiểm tra:Áp dụng cấu hình mới bằng cách khởi động lại Fail2ban:
+6. Khởi động lại dịch vụ và kiểm tra:Áp dụng cấu hình mới bằng cách khởi động lại Fail2ban:
 ```bash
 sudo systemctl restart fail2ban
 ```
@@ -64,4 +64,18 @@ sudo fail2ban-client status
 sudo fail2ban-client status sshd
 ```
 
+---
 
+Để gỡ bỏ lệnh cấm (unban) một địa chỉ IP, bạn sử dụng công cụ fail2ban-client. Dưới đây là hai cách thực hiện tùy thuộc vào nhu cầu của bạn.
+
+1. Gỡ cấm IP khỏi tất cả các bộ lọc (Jail)
+Nếu bạn đang sử dụng bản Fail2ban tương đối mới (v0.10.2 trở lên) và muốn mở khóa IP trên toàn bộ hệ thống một cách nhanh chóng, hãy chạy lệnh sau:
+```bash
+sudo fail2ban-client status sshd
+sudo fail2ban-client unban 192.168.1.100
+```
+2. Gỡ cấm IP khỏi một bộ lọc (Jail) cụ thể. Nếu bạn chỉ muốn mở khóa IP khỏi một dịch vụ nhất định (ví dụ như sshd), bạn cần chỉ định tên của jail đó trong lệnh, sau đó kiểm tra lại danh sách địa chỉ IP:
+```bash
+sudo fail2ban-client set sshd unbanip 192.168.1.100
+sudo fail2ban-client status sshd
+```
