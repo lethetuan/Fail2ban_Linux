@@ -21,9 +21,11 @@ sudo systemctl enable fail2ban
 ```bash
 sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 ```
-
+4. Cấu hình các thông số bảo vệ cơ bản: Mở tệp cấu hình vừa tạo bằng trình soạn thảo (ví dụ Nano):
+```bash
+sudo nano /etc/fail2ban/jail.local
+```
 Tìm đến phần [DEFAULT] và điều chỉnh các thông số sau theo nhu cầu của bạn:
-
 
 ignoreip = 127.0.0.1/8 ::1: Thêm IP tĩnh cá nhân hoặc IP nội bộ của bạn vào đây (cách nhau bằng dấu cách) để không bao giờ bị khóa nhầm.
 
@@ -37,7 +39,7 @@ findtime = 10m: Khoảng thời gian theo dõi log để đếm số lần lỗi
 maxretry = 5: Số lần thử thất bại tối đa được phép trong khoảng thời gian findtime trước khi IP bị cấm.
 
 
-5. Kích hoạt bộ lọc bảo vệ SSH (SSHD Jail):Tiếp tục cuộn xuống trong tệp jail.local để tìm cấu hình cho dịch vụ SSH (nằm dưới mục [sshd]). Hãy thêm dòng enabled = true để bật:
+5. Kích hoạt bộ lọc bảo vệ SSH (SSHD Jail): Tiếp tục cuộn xuống trong tệp jail.local để tìm cấu hình cho dịch vụ SSH (nằm dưới mục [sshd]). Hãy thêm dòng enabled = true để bật:
 ```bash
 [sshd]
 enabled = true
